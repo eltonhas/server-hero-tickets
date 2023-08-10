@@ -1,7 +1,8 @@
 import express, { Application } from 'express'
 import { connect } from './infra/database'
+import { errorMiddleware } from './middlewares/error.middleware'
 
-class App {
+export class App {
   public app: Application
 
   constructor() {
@@ -19,11 +20,11 @@ class App {
 
   initializeRoutes() {}
 
-  interceptionError() {}
+  interceptionError() {
+    this.app.use(errorMiddleware)
+  }
 
   listen() {
     this.app.listen(3333, () => console.log('server is runnig!'))
   }
 }
-
-export { App }
